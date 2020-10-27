@@ -15,10 +15,21 @@ class UserViewSet(TestCase):
                 'password': 'password'
                 }
         
-        response = self.client.post('/api/v1/login/', data=data)
-        
-        self.assertEqual(response.status_code, 201)
+        response = self.client.post('/api/v1/login/', data=data, content_type='application/json')
+        self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data['id'], self.user1.id)
         self.assertEqual(response.data['first_name'], self.user1.first_name)
+    
+    def test_login_user_fails(self):
+        data = {
+                'username': 'Morra',
+                'password': 'passord'
+                }
+        
+        response = self.client.post('/api/v1/login/', data=data, content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+        
+
+        
 
         

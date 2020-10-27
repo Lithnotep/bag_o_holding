@@ -15,6 +15,9 @@ from api.serializers import UserSerializer
 class UserLogin(APIView):
   parser_classes = [JSONParser]
 
-  def get(self, request):
-    user = User.objects.get(username=request.data[username])
-    
+  def post(self, request):
+    user = User.objects.get(username=request.data['username'])
+    if user.check_password(request.data['password']) :
+        return Response(UserSerializer(user).data)
+    else :
+        return Response('Incorrect Password')
