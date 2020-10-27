@@ -17,7 +17,14 @@ class UserLogin(APIView):
 
   def post(self, request):
     user = User.objects.get(username=request.data['username'])
+    if user is None :
+        return Response('Username not Found') 
     if user.check_password(request.data['password']) :
         return Response(UserSerializer(user).data)
     else :
         return Response('Incorrect Password')
+
+class UserDetail(APIView):
+  parser_classes = [JSONParser]
+  
+
