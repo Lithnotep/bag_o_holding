@@ -42,13 +42,13 @@ class UserViewSet(TestCase):
     def test_create_user(self):
         data = {
             "username": "Mikey",
-            "email": "test.com",
+            "email": "best.com",
             "password": "password",
             "first_name": "Michael",
             "last_name": "Toony"
         }
         
-        response = self.client.post('/api/v1/login/', data=data, content_type='application/json')
+        response = self.client.post('/api/v1/users/', data=data, content_type='application/json')
         self.assertEqual(response.status_code, 200)
         
         

@@ -26,5 +26,9 @@ class UserLogin(APIView):
 
 class UserDetail(APIView):
   parser_classes = [JSONParser]
+
+  def post(self, request):
+    user = User.objects.create_user(username=request.data['username'], email=request.data['email'], password=request.data['password'], first_name=request.data['first_name'], last_name=request.data['last_name'])
+    return Response(UserSerializer(user).data)
   
 
