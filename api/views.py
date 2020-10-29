@@ -28,7 +28,11 @@ class UserDetail(APIView):
   parser_classes = [JSONParser]
 
   def post(self, request):
-    user = User.objects.create_user(username=request.data['username'], email=request.data['email'], password=request.data['password'], first_name=request.data['first_name'], last_name=request.data['last_name'])
-    return Response(UserSerializer(user).data)
+    try:
+        User.objects.get(username=request.data['username'])
+    except User.DoesNotExist:
+        user = User.objects.create_user(username=request.data['username'], email=request.data['email'], password=request.data['password'], first_name=request.data['first_name'], last_name=request.data['last_name'])
+        return Response(UserSerializer(user).data)
+    return Response('Username Already Exists')
   
 
