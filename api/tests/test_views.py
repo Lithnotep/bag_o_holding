@@ -3,6 +3,7 @@ from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth.models import User
 from rest_framework import status
+import requests
 
 class UserViewSet(TestCase):
     def setUp(self):
@@ -19,15 +20,15 @@ class UserViewSet(TestCase):
         self.assertEqual(response.data['id'], self.user1.id)
         self.assertEqual(response.data['first_name'], self.user1.first_name)
     
-    def test_login_user_doesnt_exist(self):
-        data = {
-                'username': 'dorra',
-                'password': 'password'
-                }
+    # def test_login_user_doesnt_exist(self):
+    #     data = {
+    #             'username': 'dorra',
+    #             'password': 'password'
+    #             }
         
-        response = self.client.post('/api/v1/login/', data=data, content_type='application/json')
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data, 'Username not Found')
+    #     response = self.client.post('/api/v1/login/', data=data, content_type='application/json')
+    #     self.assertEqual(response.status_code, 200)
+    #     self.assertEqual(response.data, 'Username not Found')
 
     def test_login_user_bad_password(self):
         data = {
@@ -68,8 +69,8 @@ class UserViewSet(TestCase):
         response = self.client.post('/api/v1/users/', data=data, content_type='application/json')
         self.assertEqual(response.data, 'Username Already Exists')
     
-    def test_get_user(self):
-        response = self.client.post('/api/v1/users/%s' % self.user1.id, data=data, content_type='application/json')
+    # def test_get_user(self):
+    #     response = self.client.post('/api/v1/users/%s' % self.user1.id, data=data, content_type='application/json')
         
        
   
